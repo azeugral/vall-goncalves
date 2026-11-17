@@ -17,9 +17,10 @@
 <link rel="preload" href="assets/fonts/gloock.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/quadros/mulher.webp?v=1" as="image">
-<link rel="stylesheet" href="assets/site.css?v=8">
+<link rel="stylesheet" href="assets/site.css?v=9">
 </head>
 <body>
+<canvas class="fundo" id="fundo" aria-hidden="true"></canvas>
 
 <header class="topo">
   <nav class="nav" aria-label="Principal">
@@ -32,20 +33,19 @@
 <main>
 <!-- HERO: três quadros dourados na parede de tinta; em cada um, a peça seguinte cobre a anterior com tinta (troca do Veríssimo) -->
 <section class="hero" id="inicio">
-  <div class="parede parede-hero" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="0" data-limiar=".5" aria-hidden="true"></canvas>
+  <div class="parede parede-hero"> 
   <div class="hero-palco">
     <figure class="quadro quadro-lado" aria-label="Tatuagens florais da Vall">
       <div class="quadro-moldura"><div class="quadro-pp"><img src="assets/quadros/floral.webp?v=1" alt="" width="1080" height="1350"><canvas class="qv" data-artes="floral,leoa,lobo" data-off="1.3" data-cap="qCapE" aria-hidden="true"></canvas></div></div>
-      <figcaption id="qCapE" data-tinta-livre data-tinta-folga="10">Floral no braço</figcaption>
+      <figcaption id="qCapE">Floral no braço</figcaption>
     </figure>
     <figure class="quadro quadro-centro" aria-label="Tatuagens mais curtidas da Vall">
       <div class="quadro-moldura"><div class="quadro-pp"><img src="assets/quadros/mulher.webp?v=1" alt="" width="1080" height="1350"><canvas class="qv" data-artes="mulher,onca,rosas" data-off="0" data-cap="qCap" aria-hidden="true"></canvas></div></div>
-      <figcaption id="qCap" data-tinta-livre data-tinta-folga="10">Rosto e flores</figcaption>
+      <figcaption id="qCap">Rosto e flores</figcaption>
     </figure>
     <figure class="quadro quadro-lado" aria-label="Bichos com flores tatuados pela Vall">
       <div class="quadro-moldura"><div class="quadro-pp"><img src="assets/quadros/tigre.webp?v=1" alt="" width="1080" height="1350"><canvas class="qv" data-artes="tigre,leao,leao-costas" data-off="2.6" data-cap="qCapD" aria-hidden="true"></canvas></div></div>
-      <figcaption id="qCapD" data-tinta-livre data-tinta-folga="10">Tigre e girassol</figcaption>
+      <figcaption id="qCapD">Tigre e girassol</figcaption>
     </figure>
   </div>
   </div>
@@ -65,10 +65,7 @@
     <p>Flores, bichos, rostos e escritas em linha fina e sombra suave, desenhados do jeitinho de cada cliente.</p>
   </div>
   <div class="filtros" role="group" aria-label="Filtrar por estilo" id="filtros"></div>
-  <div class="parede parede-sec parede-pc parede-grade" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="5.2" data-limiar=".5" data-escala="1" aria-hidden="true"></canvas>
   <div class="grade" id="grade"></div>
-  </div>
   <div class="mais-wrap"><button class="btn" id="verMais" type="button">Ver mais trabalhos</button></div>
 </section>
 
@@ -79,12 +76,9 @@
     <h2>Cicatrizada, do mesmo jeito</h2>
     <p>Linha fina só vale se continuar bonita depois de meses. Estas são fotos das clientes com a pele já cicatrizada.</p>
   </div>
-  <div class="parede parede-sec" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="1.7" data-limiar=".47" data-espelho="scale(1,-1)" aria-hidden="true"></canvas>
   <div class="cic">
     <figure><img src="assets/img/cic-DcbF9.webp" alt="Tatuagem de cocar e flores no braço, cicatrizada" width="960" height="1200"><figcaption>Cocar e flores, 100% cicatrizada</figcaption></figure>
     <figure><img src="assets/img/cic-DWOlD.webp" alt="Tatuagem de Athena no braço, cicatrizada um ano depois" width="960" height="1200"><figcaption>Athena, um ano depois</figcaption></figure>
-  </div>
   </div>
 </section>
 
@@ -94,14 +88,11 @@
     <h2>Eu não tatuei só a pele. Tatuei história.</h2>
     <p>Filhos, pets, mãe e fé. Homenagens desenhadas a partir da foto e da história que você trouxer.</p>
   </div>
-  <div class="parede parede-sec" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="3.4" data-limiar=".48" data-espelho="scaleX(-1)" aria-hidden="true"></canvas>
   <div class="hom">
     <figure><img src="assets/img/p/DP61IYkEU3B_0.webp" alt="Dente-de-leão com os filhos em homenagem" width="960" height="1200"><figcaption>Os filhos no dente-de-leão</figcaption></figure>
     <figure><img src="assets/img/p/DWu6toFkW9__0.webp" alt="Retrato dos três cachorros em traço fino" width="960" height="1200"><figcaption>Os três pets</figcaption></figure>
     <figure><img src="assets/img/p/DfLYdzLEZZd_0.webp" alt="Patinha com o nome Benji" width="960" height="1200"><figcaption>Patinha do Benji</figcaption></figure>
     <figure><img src="assets/img/p/DWgmQj0EYYY_0.webp" alt="Nossa Senhora Aparecida com terço no pulso" width="960" height="1200"><figcaption>Nossa Senhora Aparecida</figcaption></figure>
-  </div>
   </div>
 </section>
 
@@ -111,17 +102,14 @@
   <div class="sec-cab">
     <h2>A Vall</h2>
   </div>
-  <div class="parede parede-sec parede-pc" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="6.3" data-limiar=".47" aria-hidden="true"></canvas>
   <div class="sobre">
     <figure class="sobre-foto"><img src="assets/img/vall.webp" alt="Vall Gonçalves, tatuadora, em ensaio preto e branco" width="960" height="1200"></figure>
-    <div class="sobre-txt" data-tinta-livre data-tinta-folga="22">
+    <div class="sobre-txt">
       <p>Tatuo desde 2020 em Londrina. O que mais sai da minha máquina é floral em linha fina com sombra suave: rosas, girassóis, borboletas, e bichos e rostos rodeados de flores.</p>
       <p>Cada desenho é feito do seu jeitinho, a partir da sua ideia, da parte do corpo e do tamanho. Trabalho com higiene, precisão e muito respeito à sua pele, num ambiente seguro e acolhedor.</p>
       <p>Também sou tatuada da cabeça aos pés, quase tudo feito pelo Bruno Maestro, meu marido. Foi assim que cheguei às passarelas de Miss Tattoo.</p>
     </div>
     <figure class="sobre-foto"><img src="assets/img/vall-2.webp" alt="Vall Gonçalves com as mãos tatuadas junto ao rosto" width="960" height="1200"></figure>
-  </div>
   </div>
 
 </section>
@@ -132,8 +120,7 @@
     <h2>Ser Miss vai além do título</h2>
     <p>Tatuada e tatuadora, a Vall leva para as passarelas de Miss Tattoo a arte que carrega na pele.</p>
   </div>
-  <div class="parede parede-miss" data-tinta-area>
-    <canvas class="tinta" data-tinta data-semente="2.3" data-limiar=".46" data-espelho="scaleX(-1)" aria-hidden="true"></canvas>
+  <div class="parede parede-miss"> 
     <div class="galeria">
       <figure class="qd"><div class="qd-moldura"><img src="assets/img/miss-golden.webp" alt="Vall de vestido vinho, de costas, no ensaio do Miss Golden Tattoo" width="900" height="1125"></div></figure>
       <figure class="qd qd-centro"><div class="qd-moldura"><img src="assets/img/miss-faixa.webp" alt="Vall de vestido vermelho com a faixa de Miss" width="900" height="1125"></div></figure>
@@ -154,18 +141,15 @@
     <h2>O estúdio</h2>
     <p>Em Londrina, no Paraná, dividido com o tatuador Bruno Maestro.</p>
   </div>
-  <div class="parede parede-sec parede-pc" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="7.1" data-limiar=".47" aria-hidden="true"></canvas>
   <div class="est">
     <figure><img src="assets/img/estudio.webp" alt="Vall no estúdio, com as macas e o espelho de moldura dourada" width="960" height="1200"></figure>
-    <ul class="est-itens" data-tinta-livre data-tinta-folga="22">
+    <ul class="est-itens">
       <li><strong>Avaliação gratuita</strong><span>Você mostra a ideia e o lugar, a gente acerta tamanho e valor antes de marcar.</span></li>
       <li><strong>Desenho exclusivo</strong><span>Nada de cópia de catálogo: o desenho nasce da sua referência.</span></li>
       <li><strong>Material descartável</strong><span>Agulhas e biqueiras abertas na sua frente, ambiente limpo e organizado.</span></li>
       <li><strong>Cuidados depois</strong><span>Você sai com as orientações de cicatrização e a pomada certa à venda no estúdio.</span></li>
     </ul>
     <figure><img src="assets/img/estudio-2.webp" alt="Vall sentada no estúdio" width="960" height="1200"></figure>
-  </div>
   </div>
   <p class="est-local">Londrina, PR · endereço enviado na confirmação do horário</p>
 </section>
@@ -176,9 +160,7 @@
   <div class="sec-cab">
     <h2>Dúvidas antes de tatuar</h2>
   </div>
-  <div class="parede parede-sec parede-pc" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="8.6" data-limiar=".46" aria-hidden="true"></canvas>
-  <div class="faq" data-tinta-livre data-tinta-folga="34">
+  <div class="faq">
     <details open>
       <summary>Quanto custa uma tatuagem?</summary>
       <p>Depende do tamanho, do local do corpo e de quanto detalhe o desenho leva. Por isso a avaliação é gratuita: você manda a ideia e a Vall passa o valor antes de marcar.</p>
@@ -204,7 +186,6 @@
       <p>Você sai do estúdio com as orientações de cicatrização. A pomada indicada é vendida no próprio estúdio.</p>
     </details>
   </div>
-  </div>
 </section>
 
 <!-- PEDIR ORÇAMENTO -->
@@ -219,8 +200,7 @@
     <li><strong>Desenho e valor</strong><span>A Vall prepara o desenho e passa o orçamento.</span></li>
     <li><strong>Dia marcado</strong><span>Você escolhe o horário e vem tatuar.</span></li>
   </ol>
-  <div class="parede parede-form" data-tinta-area>
-  <canvas class="tinta" data-tinta data-semente="4.1" data-limiar=".48" data-espelho="scale(-1,-1)" aria-hidden="true"></canvas>
+  <div class="parede parede-form"> 
   <form class="form" id="form" novalidate>
     <div class="campo">
       <label for="fNome">Seu nome</label>
@@ -304,7 +284,7 @@
 <script src="assets/pecas.js?v=1"></script>
 <script>window.QV_NOMES={mulher:"Rosto e flores",onca:"Onça e lírios",rosas:"Flores com borboletas",floral:"Floral no braço",leoa:"Leoa e filhotes",lobo:"Lobo e flores",tigre:"Tigre e girassol",leao:"Leão com flores","leao-costas":"Leão nas costas"}</script>
 <script src="assets/quadros.js?v=1"></script>
-<script src="assets/tinta.js?v=5"></script>
+<script src="assets/fundo.js?v=2"></script>
 <script src="assets/main.js?v=3"></script>
 </body>
 </html>

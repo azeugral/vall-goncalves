@@ -50,7 +50,6 @@ p{margin:0}
 
 /* HERO */
 .hero{position:relative;z-index:1;overflow:hidden;min-height:calc(100svh - 82px);padding:0 20px 56px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(transparent,var(--papel));pointer-events:none;z-index:0}
 .hero>*:not(.orn){position:relative;z-index:1}
 .hero-palco{margin:0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(22px,3.4vw,58px);width:100%;max-width:1240px}
 .hero-tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 0;font-size:15px;letter-spacing:.03em;color:var(--tinta2);opacity:0;animation:sobe .7s var(--ease) .28s forwards}
@@ -76,16 +75,12 @@ p{margin:0}
 @keyframes sobe{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
 /* PAREDE DE TINTA (mármore preto do mesmo motor do Bernardo): fica atrás dos quadros e do cartão; texto em área livre */
+/* FUNDO ÚNICO: mármore de tinta apagado, fixo atrás do site inteiro (assets/fundo.js) */
+.fundo{position:fixed;left:0;top:0;width:100%;height:100lvh;z-index:0;pointer-events:none;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
+.fundo.pronto{opacity:.26}
 .parede{position:relative}
-.hero>.parede.parede,.sec>.parede.parede{z-index:auto}
-.hero,.sec{background:url(img/grao.png),var(--papel)}
-.sec-papel2{background:url(img/grao.png),var(--papel2)}
-.parede-sec{margin:0 -24px;padding:clamp(56px,6vw,84px) 24px}
-.parede-grade{padding-top:clamp(40px,4vw,60px);padding-bottom:clamp(40px,4vw,60px)}
-.tinta{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;opacity:0;transition:opacity 1.4s var(--ease);pointer-events:none}
-.tinta.pronto{opacity:1}
-.tinta-video{object-fit:fill;mix-blend-mode:multiply}
-.parede-hero{align-self:stretch;margin:0 -20px;padding:clamp(34px,6svh,64px) 20px 26px}
+.sec-papel2{background:rgba(226,215,200,.42)}
+.parede-hero{align-self:stretch;padding:clamp(34px,6svh,64px) 0 26px}
 
 /* SEÇÕES */
 .sec{position:relative;z-index:1;overflow:hidden;padding:clamp(80px,10vw,128px) 24px}
@@ -118,7 +113,7 @@ p{margin:0}
 
 /* CICATRIZADA */
 .cic{display:grid;grid-template-columns:repeat(2,minmax(0,380px));justify-content:center;gap:28px}
-.cic figure,.hom figure{margin:0;padding:10px 10px 0;background:url(img/grao.png),var(--papel);box-shadow:0 18px 40px -18px rgba(20,12,10,.55),0 3px 8px -3px rgba(20,12,10,.3)}
+.cic figure,.hom figure{margin:0;padding:10px 10px 0;background:var(--papel);box-shadow:0 18px 40px -18px rgba(20,12,10,.55),0 3px 8px -3px rgba(20,12,10,.3)}
 .cic img{aspect-ratio:4/5;object-fit:cover;width:100%;display:block}
 .cic figcaption,.hom figcaption{text-wrap:balance;padding:14px 6px 16px;text-align:center;font-family:var(--serif);font-size:19px}
 
@@ -139,7 +134,7 @@ p{margin:0}
 
 /* MISS: três quadros dourados na parede de tinta */
 .sec-miss{padding-bottom:clamp(72px,9vw,112px)}
-.parede-miss{margin:0 -24px;padding:clamp(70px,8vw,110px) 24px}
+.parede-miss{padding:clamp(40px,5vw,64px) 0}
 .galeria{display:grid;grid-template-columns:1fr 1.22fr 1fr;align-items:center;gap:clamp(22px,4vw,56px);max-width:1040px;margin:0 auto}
 .qd{margin:0}
 .qd-moldura{padding:clamp(10px,1.4vw,17px);background:var(--ouro-grad);box-shadow:var(--ouro-sombra)}
@@ -173,7 +168,7 @@ p{margin:0}
 .passos strong,.passos span{text-wrap:balance}
 .passos span{font-size:15px;color:var(--tinta2);line-height:1.5}
 .sec-marcar{padding-bottom:clamp(40px,6vw,80px)}
-.parede-form{margin:0 -24px;padding:clamp(80px,9vw,120px) 24px}
+.parede-form{padding:clamp(40px,5vw,64px) 0 0}
 .form{position:relative;max-width:720px;margin:0 auto;background:var(--papel);color:var(--tinta);padding:clamp(26px,4vw,48px);display:grid;gap:24px;box-shadow:0 0 0 1px rgba(27,23,22,.18),10px 10px 0 var(--vinho),0 30px 60px -20px rgba(20,12,10,.45)}
 .campo{display:grid;gap:9px;border:0;margin:0;padding:0;min-width:0}
 .campo label,.campo legend{font-weight:600;font-size:15px;padding:0}
@@ -228,13 +223,10 @@ p{margin:0}
   .nav-lado{display:none}
   .marca{font-size:24px}
   .hero{min-height:auto;padding:0 16px 56px}
-  .parede-hero{margin:0 -16px;padding:30px 16px 20px}
+  .parede-hero{padding:30px 0 20px}
   .galeria{grid-template-columns:1fr 1fr;gap:18px;max-width:560px}
   .qd-centro{grid-column:1/-1;order:-1;width:74%;justify-self:center}
   .quadro-lado{display:none}
-  .parede-sec{padding-top:44px;padding-bottom:44px}
-  .parede-pc.parede-pc{margin:0;padding:0}
-  .parede-pc>.tinta{display:none}
   .hero-tags{display:grid;grid-template-columns:auto auto;justify-content:center;gap:6px 22px;font-size:13px}
   .hero-tags li+li::before{display:none}
   .quadro-moldura{--h:min(56svh,calc((100vw - 48px)*1.25))}
@@ -252,7 +244,6 @@ p{margin:0}
   body{font-size:16px}
   .grade{grid-template-columns:1fr 1fr;gap:8px}
   .sec{padding:72px 16px}
-  .parede-sec{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
   .sec-cab{margin-bottom:34px}
   .sec-cab p{font-size:16px}
   .botoes{flex-direction:column;width:100%;max-width:340px}
@@ -272,7 +263,8 @@ p{margin:0}
   .lb{grid-template-columns:52px 1fr 52px;padding:0 4px 18px}
   .lb-seta{width:44px;height:44px}
   .orn-centro{height:300px;opacity:.06}
-  .parede-miss,.parede-form{margin:0 -16px;padding:64px 16px}
+  .parede-miss{padding:36px 0}
+  .parede-form{padding:36px 0 0}
   .form{box-shadow:0 0 0 1px rgba(27,23,22,.18),6px 6px 0 var(--vinho),0 24px 50px -20px rgba(20,12,10,.45)}
 }
 @media (max-width:360px){
