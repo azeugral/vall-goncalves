@@ -52,14 +52,9 @@ p{margin:0}
 .hero{position:relative;z-index:1;overflow:hidden;min-height:calc(100svh - 82px);padding:0 20px 56px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(transparent,var(--papel));pointer-events:none;z-index:0}
 .hero>*:not(.orn){position:relative;z-index:1}
-.hero-palco{margin:0 auto;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(24px,4vw,64px);width:100%;max-width:1180px}
-.hero-info{list-style:none;margin:0;padding:0;display:grid;gap:18px;font-family:var(--serif);font-size:19px;color:var(--tinta2)}
-.hero-info li{opacity:0;animation:sobe .7s var(--ease) forwards}
-.hero-info li:nth-child(2){animation-delay:.1s}.hero-info li:nth-child(3){animation-delay:.2s}
-.hero-info-e{text-align:right}.hero-info-d{text-align:left}
-.hero-info li::after{content:"";display:block;width:34px;height:1px;background:var(--vinho);margin:10px 0 0;opacity:.6}
-.hero-info-e li::after{margin-left:auto}
-
+.hero-palco{margin:0 auto;display:flex;align-items:center;justify-content:center;gap:clamp(22px,3.4vw,58px);width:100%;max-width:1240px}
+.hero-tags{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 0;font-size:15px;letter-spacing:.03em;color:var(--tinta2);opacity:0;animation:sobe .7s var(--ease) .28s forwards}
+.hero-tags li+li::before{content:"";display:inline-block;width:4px;height:4px;background:var(--vinho);margin:0 14px;vertical-align:middle;transform:rotate(45deg) translateY(-1px)}
 .quadro{margin:0;display:flex;flex-direction:column;align-items:center}
 .quadro-moldura{
   --h:min(52svh,560px);
@@ -69,9 +64,10 @@ p{margin:0}
 }
 .quadro-pp{position:relative;height:100%;background:#f6f1e9;box-shadow:inset 0 0 0 1px #6d5020,inset 0 2px 8px rgba(60,40,10,.35);overflow:hidden}
 .quadro-pp::before{content:"";position:absolute;inset:0;background:url(img/grao.png);opacity:.35;pointer-events:none}
-#sombra,#sombraV{position:absolute;inset:6%;width:88%;height:88%;display:block;object-fit:contain}
-#sombraV{mix-blend-mode:multiply}
-.quadro.estatica .quadro-pp{background:#f6f1e9 url(hero/mulher-final.webp) center/88% no-repeat}
+.quadro-pp img,.quadro-pp canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.quadro-pp canvas{opacity:0;transition:opacity .4s var(--ease)}
+.quadro-pp canvas.pronto{opacity:1}
+.quadro-lado .quadro-moldura{--h:min(37svh,400px);animation-delay:.2s}
 .quadro figcaption{margin-top:18px;padding:2px 10px;font-size:14px;letter-spacing:.04em;color:var(--tinta2);min-height:1.6em;transition:opacity .3s var(--ease)}
 .nome{font-size:clamp(52px,min(8.4vw,12svh),128px);color:var(--vinho);margin-top:clamp(14px,2.4svh,26px);letter-spacing:-.01em;opacity:0;animation:sobe .8s var(--ease) .15s forwards}
 .mote{font-size:clamp(17px,1.6vw,21px);color:var(--tinta2);margin-top:10px;opacity:0;animation:sobe .7s var(--ease) .25s forwards}
@@ -82,18 +78,18 @@ p{margin:0}
 /* PAREDE DE TINTA (mármore preto do mesmo motor do Bernardo): fica atrás dos quadros e do cartão; texto em área livre */
 .parede{position:relative}
 .hero>.parede.parede,.sec>.parede.parede{z-index:auto}
-.hero,.sec-miss,.sec-marcar{background:url(img/grao.png),var(--papel)}
+.hero,.sec{background:url(img/grao.png),var(--papel)}
+.sec-papel2{background:url(img/grao.png),var(--papel2)}
+.parede-sec{margin:0 -24px;padding:clamp(56px,6vw,84px) 24px}
+.parede-grade{padding-top:clamp(40px,4vw,60px);padding-bottom:clamp(40px,4vw,60px)}
 .tinta{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;opacity:0;transition:opacity 1.4s var(--ease);pointer-events:none}
 .tinta.pronto{opacity:1}
 .tinta-video{object-fit:fill;mix-blend-mode:multiply}
 .parede-hero{align-self:stretch;margin:0 -20px;padding:clamp(34px,6svh,64px) 20px 26px}
-.hero-info{position:relative}
-.hero-info li{background:none}
 
 /* SEÇÕES */
 .sec{position:relative;z-index:1;overflow:hidden;padding:clamp(80px,10vw,128px) 24px}
 .sec>*:not(.orn){position:relative;z-index:1}
-.sec-papel2{background:var(--papel2)}
 .sec-escura{background:var(--escuro);color:var(--creme)}
 .sec-escura h2{color:var(--creme)}
 .sec-escura .btn{border-color:var(--ouro2);color:var(--ouro3)}
@@ -122,18 +118,18 @@ p{margin:0}
 
 /* CICATRIZADA */
 .cic{display:grid;grid-template-columns:repeat(2,minmax(0,380px));justify-content:center;gap:28px}
-.cic figure,.hom figure{margin:0}
-.cic img{aspect-ratio:4/5;object-fit:cover;width:100%;border:10px solid #2b1f21}
-.cic figcaption,.hom figcaption{text-wrap:balance;margin-top:14px;text-align:center;font-family:var(--serif);font-size:19px}
+.cic figure,.hom figure{margin:0;padding:10px 10px 0;background:url(img/grao.png),var(--papel);box-shadow:0 18px 40px -18px rgba(20,12,10,.55),0 3px 8px -3px rgba(20,12,10,.3)}
+.cic img{aspect-ratio:4/5;object-fit:cover;width:100%;display:block}
+.cic figcaption,.hom figcaption{text-wrap:balance;padding:14px 6px 16px;text-align:center;font-family:var(--serif);font-size:19px}
 
 /* HOMENAGENS */
 .hom{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1180px;margin:0 auto}
-.hom img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.hom img{aspect-ratio:4/5;object-fit:cover;width:100%;display:block}
 
 /* A VALL */
 .sobre{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:clamp(24px,3.4vw,48px);align-items:center;max-width:1180px;margin:0 auto}
 .sobre-foto{margin:0}
-.sobre-foto img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.sobre-foto img{aspect-ratio:4/5;object-fit:cover;width:100%;display:block;box-shadow:0 18px 40px -18px rgba(20,12,10,.55)}
 .sobre-txt{text-align:center;display:grid;gap:18px;font-size:18px}
 .titulos{list-style:none;padding:0;margin:56px auto 0;max-width:1000px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
 .titulos li{text-align:center;padding:10px 14px;border-left:1px solid rgba(122,29,44,.25);display:grid;gap:4px}
@@ -163,7 +159,7 @@ p{margin:0}
 /* ESTÚDIO */
 .est{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:clamp(24px,3.4vw,48px);align-items:center;max-width:1180px;margin:0 auto}
 .est figure{margin:0}
-.est img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.est img{aspect-ratio:4/5;object-fit:cover;width:100%;display:block;box-shadow:0 18px 40px -18px rgba(20,12,10,.55)}
 .est-itens{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:28px 22px;text-align:center}
 .est-itens li{display:grid;gap:6px}
 .est-itens strong{font-family:var(--serif);font-weight:400;font-size:21px;color:var(--vinho)}
@@ -226,7 +222,6 @@ p{margin:0}
 /* RESPONSIVO */
 @media (max-width:1100px){
   .grade{grid-template-columns:repeat(3,1fr)}
-  .hero-info{font-size:17px}
 }
 @media (max-width:900px){
   .nav{grid-template-columns:1fr;justify-items:center;gap:10px;padding:16px 16px 6px}
@@ -236,8 +231,12 @@ p{margin:0}
   .parede-hero{margin:0 -16px;padding:30px 16px 20px}
   .galeria{grid-template-columns:1fr 1fr;gap:18px;max-width:560px}
   .qd-centro{grid-column:1/-1;order:-1;width:74%;justify-self:center}
-  .hero-palco{grid-template-columns:1fr;gap:0}
-  .hero-info{display:none}
+  .quadro-lado{display:none}
+  .parede-sec{padding-top:44px;padding-bottom:44px}
+  .parede-pc.parede-pc{margin:0;padding:0}
+  .parede-pc>.tinta{display:none}
+  .hero-tags{display:grid;grid-template-columns:auto auto;justify-content:center;gap:6px 22px;font-size:13px}
+  .hero-tags li+li::before{display:none}
   .quadro-moldura{--h:min(56svh,calc((100vw - 48px)*1.25))}
   .orn-hero{height:60%;top:6%;opacity:.07}
   .orn-e{left:-60px}.orn-d{right:-60px}
@@ -253,6 +252,7 @@ p{margin:0}
   body{font-size:16px}
   .grade{grid-template-columns:1fr 1fr;gap:8px}
   .sec{padding:72px 16px}
+  .parede-sec{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}
   .sec-cab{margin-bottom:34px}
   .sec-cab p{font-size:16px}
   .botoes{flex-direction:column;width:100%;max-width:340px}
@@ -285,6 +285,7 @@ p{margin:0}
 }
 @media (min-width:901px) and (max-height:860px){
   .quadro-moldura{--h:46svh}
+  .quadro-lado .quadro-moldura{--h:33svh}
   .parede-hero{padding-top:30px;padding-bottom:14px}
   .nome{margin-top:8px}
   .botoes{margin-top:20px}

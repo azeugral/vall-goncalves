@@ -97,7 +97,7 @@
       var livres = Array.prototype.slice.call(area.querySelectorAll("[data-tinta-livre]"), 0, MAX_ZONAS);
       var zonas = new Float32Array(MAX_ZONAS * 4), alvo = new Float32Array(MAX_ZONAS * 4), zf = 1, primeira = true;
       var w = 0, hgt = 0, visivel = true, rodando = false, ultimo = 0, tempo = 12 + parseFloat(cv.dataset.semente || "0") * 3, inicio = 0;
-      var escala = window.matchMedia("(pointer: coarse)").matches ? 1 : 1.5, amostras = [], ajustes = 0;
+      var escala = window.matchMedia("(pointer: coarse)").matches ? 1 : parseFloat(cv.dataset.escala || "1.5"), amostras = [], ajustes = 0;
 
       function medir() {
         var dpr = Math.min(window.devicePixelRatio || 1, escala);
@@ -176,5 +176,8 @@
     }).observe(v);
     v.classList.add("pronto");
   }
-  canvases.forEach(function (cv) { if (celular && !cv.hasAttribute("data-tinta-gravar")) emVideo(cv); else iniciar(cv); });
+  canvases.forEach(function (cv) {
+    if (celular && cv.closest(".parede-pc")) { cv.remove(); return; }
+    if (celular && !cv.hasAttribute("data-tinta-gravar")) emVideo(cv); else iniciar(cv);
+  });
 })();

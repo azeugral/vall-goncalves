@@ -1,8 +1,0 @@
-<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#fff}canvas{width:640px;height:800px;display:block}</style>
-<canvas id="c"></canvas><script src="assets/sombreado.js"></script><script>
-const api=sombreadoHero(document.getElementById('c'));
-const ld=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s});
-window.pronto=Promise.all(sombreadoPecas.map(([n],i)=>Promise.all([ld('assets/hero/'+n+'.webp'),ld('assets/hero/'+n+'-fluxo.webp')]).then(([a,b])=>api.carregar(i,a,b)))).then(()=>1);
-window.quadro=T=>{const e=sombreadoEm(T);api.quadro(e.t,e.i,e.al);return document.getElementById('c').toDataURL('image/png')};
-window.local=(t,i)=>{api.quadro(t,i,1);return document.getElementById('c').toDataURL('image/png')};
-</script>
