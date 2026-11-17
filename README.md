@@ -3,6 +3,7 @@
 Prévia (noindex) feita a partir do Instagram @vallgoncalves.tattoo em 17/11/2026.
 
 Conceito: a peça dela nasce dentro de um quadro dourado (o da Miss Golden Tattoo e o espelho de moldura dourada do estúdio), do estêncil violeta ao sombreado fine line. Mote: "Seu corpo é sua casa. Vamos decorar?" (post dela).
+v2 (17/11): fundo com mármore de tinta preta (motor do site do Bernardo Lacerda, assets/tinta.js) atrás do quadro do hero, da galeria Miss e do cartão do pedido; textos em área livre; celular usa assets/video/tinta.mp4 (tools/gravar_tinta.py, regravar se mexer no shader). Seções novas: Miss Tattoo e Dúvidas.
 Paleta papel #F2ECE3, vinho #7A1D2C (vestido de Miss), tinta #1B1716, ouro só na moldura. Fontes Gloock + Hanken Grotesk.
 
 ## CONFIRMAR com a cliente
@@ -14,3 +15,4 @@ Paleta papel #F2ECE3, vinho #7A1D2C (vestido de Miss), tinta #1B1716, ouro só n
 - Tratamento de estrias (@vallgoncalves_tattoo_estrias): incluir como serviço?
 - Dias de atendimento (sábado?).
 - Textos de "A Vall" escritos em primeira pessoa a partir das legendas.
+- Respostas das Dúvidas (fechamento em sessões, pomada no estúdio) escritas a partir do que ela posta.

@@ -17,25 +17,25 @@
 <link rel="preload" href="assets/fonts/gloock.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/hero/mulher.webp" as="image">
-<link rel="stylesheet" href="assets/site.css?v=1">
+<link rel="stylesheet" href="assets/site.css?v=6">
 </head>
 <body>
 
 <header class="topo">
   <nav class="nav" aria-label="Principal">
-    <div class="nav-lado"><a href="#trabalhos">Trabalhos</a><a href="#vall">A Vall</a></div>
+    <div class="nav-lado"><a href="#trabalhos">Trabalhos</a><a href="#vall">A Vall</a><a href="#miss">Miss</a></div>
     <a class="marca" href="#inicio" aria-label="Vall Gonçalves, início">Vall Gonçalves</a>
-    <div class="nav-lado"><a href="#estudio">Estúdio</a><a href="#marcar">Orçamento</a></div>
+    <div class="nav-lado"><a href="#estudio">Estúdio</a><a href="#duvidas">Dúvidas</a><a href="#marcar">Orçamento</a></div>
   </nav>
 </header>
 
 <main>
 <!-- HERO: a peça dela nasce dentro do quadro dourado (o da Miss Golden e o espelho do estúdio) -->
 <section class="hero" id="inicio">
-  <img class="orn orn-hero orn-e" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
-  <img class="orn orn-hero orn-d" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
+  <div class="parede parede-hero" data-tinta-area>
+  <canvas class="tinta" data-tinta data-semente="0" data-limiar=".5" aria-hidden="true"></canvas>
   <div class="hero-palco">
-    <ul class="hero-info hero-info-e">
+    <ul class="hero-info hero-info-e" data-tinta-livre data-tinta-folga="14">
       <li>Fine line floral</li>
       <li>Preto e cinza</li>
       <li>Tatuadora desde 2020</li>
@@ -47,13 +47,14 @@
           <video id="sombraV" muted playsinline preload="auto" aria-hidden="true" hidden></video>
         </div>
       </div>
-      <figcaption id="qCap">Rosto e flores · coxa</figcaption>
+      <figcaption id="qCap" data-tinta-livre data-tinta-folga="10">Rosto e flores · coxa</figcaption>
     </figure>
-    <ul class="hero-info hero-info-d">
+    <ul class="hero-info hero-info-d" data-tinta-livre data-tinta-folga="14">
       <li>Londrina, PR</li>
       <li>2ª Golden Tattoo</li>
       <li>Avaliação gratuita</li>
     </ul>
+  </div>
   </div>
   <h1 class="nome">Vall Gonçalves</h1>
   <p class="mote">Seu corpo é sua casa. Vamos decorar?</p>
@@ -77,7 +78,7 @@
 </section>
 
 <!-- CICATRIZADA -->
-<section class="sec sec-escura" id="cicatrizada">
+<section class="sec sec-papel2" id="cicatrizada">
   <img class="orn orn-centro" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
   <div class="sec-cab">
     <h2>Cicatrizada, do mesmo jeito</h2>
@@ -106,7 +107,7 @@
 </section>
 
 <!-- A VALL -->
-<section class="sec sec-papel2" id="vall">
+<section class="sec" id="vall">
   <img class="orn orn-centro" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
   <div class="sec-cab">
     <h2>A Vall</h2>
@@ -116,9 +117,26 @@
     <div class="sobre-txt">
       <p>Tatuo desde 2020 em Londrina. O que mais sai da minha máquina é floral em linha fina com sombra suave: rosas, girassóis, borboletas, e bichos e rostos rodeados de flores.</p>
       <p>Cada desenho é feito do seu jeitinho, a partir da sua ideia, da parte do corpo e do tamanho. Trabalho com higiene, precisão e muito respeito à sua pele, num ambiente seguro e acolhedor.</p>
-      <p>Também sou tatuada da cabeça aos pés, e foi assim que cheguei às passarelas de Miss Tattoo.</p>
+      <p>Também sou tatuada da cabeça aos pés, quase tudo feito pelo Bruno Maestro, meu marido. Foi assim que cheguei às passarelas de Miss Tattoo.</p>
     </div>
-    <figure class="sobre-foto"><img src="assets/img/miss.webp" alt="Vall Gonçalves de vestido vinho no ensaio de Miss Tattoo" width="960" height="1200"></figure>
+    <figure class="sobre-foto"><img src="assets/img/vall-2.webp" alt="Vall Gonçalves com as mãos tatuadas junto ao rosto" width="960" height="1200"></figure>
+  </div>
+
+</section>
+
+<!-- MISS TATTOO: três quadros dourados na parede de tinta -->
+<section class="sec sec-miss" id="miss">
+  <div class="sec-cab">
+    <h2>Ser Miss vai além do título</h2>
+    <p>Tatuada e tatuadora, a Vall leva para as passarelas de Miss Tattoo a arte que carrega na pele.</p>
+  </div>
+  <div class="parede parede-miss" data-tinta-area>
+    <canvas class="tinta" data-tinta data-semente="2.3" data-limiar=".46" data-espelho="scaleX(-1)" aria-hidden="true"></canvas>
+    <div class="galeria">
+      <figure class="qd"><div class="qd-moldura"><img src="assets/img/miss-golden.webp" alt="Vall de vestido vinho, de costas, no ensaio do Miss Golden Tattoo" width="900" height="1125"></div></figure>
+      <figure class="qd qd-centro"><div class="qd-moldura"><img src="assets/img/miss-faixa.webp" alt="Vall de vestido vermelho com a faixa de Miss" width="900" height="1125"></div></figure>
+      <figure class="qd"><div class="qd-moldura"><img src="assets/img/miss-musas.webp" alt="Vall de costas mostrando as tatuagens das costas e dos braços" width="900" height="1125"></div></figure>
+    </div>
   </div>
   <ul class="titulos">
     <li><strong>2ª Golden Tattoo</strong><span>Miss Golden Tattoo</span></li>
@@ -149,10 +167,42 @@
   <p class="est-local">Londrina, PR · endereço enviado na confirmação do horário</p>
 </section>
 
+<!-- DÚVIDAS -->
+<section class="sec sec-papel2" id="duvidas">
+  <img class="orn orn-centro" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
+  <div class="sec-cab">
+    <h2>Dúvidas antes de tatuar</h2>
+  </div>
+  <div class="faq">
+    <details open>
+      <summary>Quanto custa uma tatuagem?</summary>
+      <p>Depende do tamanho, do local do corpo e de quanto detalhe o desenho leva. Por isso a avaliação é gratuita: você manda a ideia e a Vall passa o valor antes de marcar.</p>
+    </details>
+    <details>
+      <summary>O desenho é exclusivo?</summary>
+      <p>Sim. A referência que você trouxer vira um desenho feito do seu jeitinho, com o encaixe pensado para a parte do corpo escolhida.</p>
+    </details>
+    <details>
+      <summary>Faz cobertura de tatuagem antiga?</summary>
+      <p>Faz. Mande uma foto da tatuagem atual no WhatsApp para a Vall avaliar o que dá para cobrir e com qual desenho.</p>
+    </details>
+    <details>
+      <summary>Tatua peças pequenas e delicadas?</summary>
+      <p>Sim, de escritas e patinhas a borboletas e florzinhas. Peças pequenas também passam pela avaliação, para acertar traço e tamanho.</p>
+    </details>
+    <details>
+      <summary>Posso fazer um fechamento de braço ou perna?</summary>
+      <p>Pode. Fechamentos são feitos em várias sessões, com o desenho planejado inteiro antes da primeira.</p>
+    </details>
+    <details>
+      <summary>Como cuidar depois?</summary>
+      <p>Você sai do estúdio com as orientações de cicatrização. A pomada indicada é vendida no próprio estúdio.</p>
+    </details>
+  </div>
+</section>
+
 <!-- PEDIR ORÇAMENTO -->
-<section class="sec sec-escura" id="marcar">
-  <img class="orn orn-hero orn-e" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
-  <img class="orn orn-hero orn-d" src="assets/img/orn/ramo.webp" alt="" aria-hidden="true">
+<section class="sec sec-marcar" id="marcar">
   <div class="sec-cab">
     <h2>Pedir orçamento</h2>
     <p>O orçamento e a avaliação são gratuitos. Responda abaixo e a mensagem já sai pronta no WhatsApp da Vall.</p>
@@ -163,6 +213,8 @@
     <li><strong>Desenho e valor</strong><span>A Vall prepara o desenho e passa o orçamento.</span></li>
     <li><strong>Dia marcado</strong><span>Você escolhe o horário e vem tatuar.</span></li>
   </ol>
+  <div class="parede parede-form" data-tinta-area>
+  <canvas class="tinta" data-tinta data-semente="4.1" data-limiar=".48" data-espelho="scale(-1,-1)" aria-hidden="true"></canvas>
   <form class="form" id="form" novalidate>
     <div class="campo">
       <label for="fNome">Seu nome</label>
@@ -223,6 +275,7 @@
     <button class="btn btn-cheio btn-envio" type="submit">Enviar pelo WhatsApp</button>
     <p class="form-nota">Abre o WhatsApp da Vall (43 99963-1074) com a mensagem pronta. Fotos de referência você manda por lá.</p>
   </form>
+  </div>
 </section>
 </main>
 
@@ -244,6 +297,7 @@
 
 <script src="assets/pecas.js?v=1"></script>
 <script src="assets/sombreado.js?v=1"></script>
-<script src="assets/main.js?v=1"></script>
+<script src="assets/tinta.js?v=4"></script>
+<script src="assets/main.js?v=2"></script>
 </body>
 </html>

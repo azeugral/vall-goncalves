@@ -103,7 +103,7 @@ document.getElementById('lbQuero').onclick=()=>{
 // ENTRADA AO ROLAR (só subida leve)
 (function(){
   if(!('IntersectionObserver' in window))return;
-  const els=document.querySelectorAll('.sec-cab,.cic figure,.hom figure,.sobre>*,.titulos,.est>*,.passos li,.form');
+  const els=document.querySelectorAll('.sec-cab,.cic figure,.hom figure,.sobre>*,.titulos,.est>*,.passos li,.galeria .qd,.faq');
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
   els.forEach(el=>{el.classList.add('surge');io.observe(el)});
 })();
