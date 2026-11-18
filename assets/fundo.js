@@ -1,8 +1,9 @@
-/* Vall Gonçalves: fundo único do site. Mármore de nanquim que corre devagar atrás de tudo (princípio da Aisora:
-   um canvas fixo, apagado, sem cortes por seção), feito na qualidade da fumaça do Taffa:
-   simplex em alta precisão, torção dupla (domain warp), resolução real da tela, fios finos com antisserrilhado
-   por derivada e dither por pixel para não aparecer degrau no cinza. Desenha a 30 qps e baixa a resolução
-   sozinho se a máquina sofrer. */
+/* Vall Gonçalves: fundo único do site. Mármore de tinta no princípio do Bernardo (faixas largas e espalhadas,
+   com um veio fino ao lado), só que apagado e atrás do site inteiro, como na Aisora: um canvas fixo,
+   sem cortes por seção, que desliza devagar com a rolagem (parallax leve), então a página toda parece
+   estar sobre a mesma folha marmorizada.
+   Qualidade: simplex em alta precisão, resolução real da tela, bordas antisserrilhadas por derivada,
+   dither contra degrau no cinza. Baixa a resolução sozinho se a máquina sofrer. */
 (function () {
   "use strict";
   var cv = document.getElementById("fundo");
@@ -15,7 +16,7 @@
   var VS = "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}";
   var FS = (der ? "#extension GL_OES_standard_derivatives : enable\n#define DER 1\n" : "") +
     ((hp && hp.precision) ? "precision highp float;\n" : "precision mediump float;\n") + [
-    "uniform vec2 uRes; uniform float uT;",
+    "uniform vec2 uRes; uniform float uT; uniform float uS;",
     /* simplex 2D (Ashima / Stefan Gustavson) */
     "vec3 m289(vec3 x){return x-floor(x*(1./289.))*289.;}",
     "vec2 m289(vec2 x){return x-floor(x*(1./289.))*289.;}",
@@ -31,38 +32,39 @@
     " m*=1.79284291400159-.85373472095314*(a0*a0+h*h);",
     " vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw;",
     " return 130.*dot(m,g);}",
-    "mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}",
-    "float fbm(vec2 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*sn(p);p=rot(.57)*p*1.93+vec2(3.1,1.7);a*=.48;}return .5+.5*s;}",
-    "float fb3(vec2 p){float s=0.,a=.5;for(int i=0;i<3;i++){s+=a*sn(p);p=rot(.57)*p*1.9+vec2(3.1,1.7);a*=.45;}return .5+.5*s/.875;}",
+    /* 3 oitavas suaves: o mármore fica de curvas longas, sem granulado */
+    "float fb(vec2 p){float v=0.,a=.5;mat2 k=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<3;i++){v+=a*sn(p);p=k*p;a*=.5;}return .5+.5*v/.875;}",
     "void main(){",
-    " vec2 fc=gl_FragCoord.xy; float esc=max(uRes.x,uRes.y);",
-    " vec2 p=(fc-.5*uRes)/esc*1.25; float t=uT*.014;",
-    /* torção dupla em ruído de poucas oitavas: as dobras ficam longas e lisas, como tinta puxada na água */
-    " vec2 q=vec2(fb3(p*.8+vec2(0.,t)),fb3(p*.8+vec2(5.2,1.3)-vec2(t*.8,0.)));",
-    " vec2 r=vec2(fb3(p+1.9*q+vec2(1.7,9.2)+vec2(t*.6,-t*.3)),fb3(p+1.9*q+vec2(8.3,2.8)+vec2(t*.4,t*.5)));",
-    " float d=fb3(p*.9+2.1*r);",
-    /* véu: massas suaves, com um grão fino de fumaça por dentro */
-    " float veu=smoothstep(.5,.86,d); veu=veu*veu*(3.-2.*veu);",
-    " float fumo=fbm(p*3.+r*2.);",
-    " veu*=.75+.5*fumo;",
-    /* fios: curvas de nível paralelas da mesma tinta, finas e lisas, antisserrilhadas pela derivada */
-    " float k=d*30.; float s=abs(fract(k)-.5);",
+    " vec2 fc=gl_FragCoord.xy; float mn=min(uRes.x,uRes.y);",
+    " vec2 c0=(fc-vec2(0.,uS*.18)-.5*uRes)/mn;",
+    /* tela em pé: gira o desenho para manter a composição da tela deitada */
+    " if(uRes.y>uRes.x*1.05) c0=vec2(c0.y,-c0.x)*.8;",
+    /* a folha desliza com a rolagem a 18% da velocidade do conteúdo */
+    " vec2 p=c0*.42+vec2(2.3,1.1);",
+    " float T=uT*.022; vec2 o1=vec2(0.,T),o2=vec2(-T*.7),o3=vec2(T*.6),o4=vec2(-T*.4,T*.2);",
+    " vec2 a=vec2(fb(p+o1),fb(p+vec2(5.2,1.3)+o2));",
+    " vec2 b=vec2(fb(p+1.5*a+vec2(1.7,9.2)+o3),fb(p+1.5*a+vec2(8.3,2.8)+o4));",
+    " float w=fb(p+1.7*b);",
+    /* faixas de mármore: seno sobre a coordenada torcida; limiar alto deixa as manchas espaçadas */
+    " float v=sin((p.x*1.1+p.y*.55+w*3.4)*1.55);",
     "#ifdef DER",
-    " float fw=max(fwidth(k),1e-4);",
+    " float aa=clamp(fwidth(v),1e-4,.08)*1.2;",
     "#else",
-    " float fw=.03;",
+    " float aa=.02;",
     "#endif",
-    " float fio=1.-smoothstep(.0,fw*1.4,.5-s-.02);",
-    " fio*=smoothstep(.36,.66,d)*(1.-smoothstep(.12,.3,fw));",
-    " float onda=.5+.5*sin(d*9.+r.x*6.);",
-    /* luz rasante: um lado de cada dobra mais escuro, dá volume sem contraste */
-    " float relevo=clamp(.5+(r.x-r.y)*1.6,0.,1.);",
-    " float a=veu*(.5+.5*relevo)*.2+fio*(.05+.13*onda)*(.4+.6*smoothstep(.4,.75,d));",
+    " float faixa=smoothstep(.8-aa,.8+aa,v);",
+    /* miolo da faixa um pouco mais denso que a borda, como tinta que assentou */
+    " float miolo=smoothstep(.8,1.,v);",
+    " float tom=.04+.028*miolo+.012*(w-.5);",
+    /* veio fino que acompanha a faixa por fora, afinando nas pontas */
+    " float lw=.035*smoothstep(.25,.7,w);",
+    " float veio=smoothstep(.62-aa,.62+aa,v)*(1.-smoothstep(.62+lw-aa,.62+lw+aa,v))*clamp(lw/(aa*2.5+1e-4),0.,1.);",
+    " float al=faixa*tom+veio*.06*(1.-faixa);",
     /* dither por pixel contra degrau no cinza claro */
-    " a+=(fract(52.9829189*fract(dot(fc,vec2(.06711056,.00583715))))-.5)/255.;",
-    " a=clamp(a,0.,1.);",
-    " vec3 tinta=vec3(.105,.088,.084);",
-    " gl_FragColor=vec4(tinta*a,a);}"
+    " al+=(fract(52.9829189*fract(dot(fc,vec2(.06711056,.00583715))))-.5)/255.;",
+    " al=clamp(al,0.,1.);",
+    " vec3 tinta=vec3(.11,.085,.08);",
+    " gl_FragColor=vec4(tinta*al,al);}"
   ].join("\n");
   function sh(tp, src) { var o = gl.createShader(tp); gl.shaderSource(o, src); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.warn("fundo:", gl.getShaderInfoLog(o)); return o; }
   var pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS));
@@ -72,27 +74,33 @@
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-  var uR = gl.getUniformLocation(pr, "uRes"), uT = gl.getUniformLocation(pr, "uT");
+  var uR = gl.getUniformLocation(pr, "uRes"), uT = gl.getUniformLocation(pr, "uT"), uS = gl.getUniformLocation(pr, "uS");
   var toque = matchMedia("(pointer: coarse)").matches;
-  var esc = Math.min(devicePixelRatio || 1, toque ? 1.5 : 1.25), T = 30, ult = 0, acum = 0, amostras = [];
+  var esc = Math.min(devicePixelRatio || 1, 1.5), k = 1;
+  var T = 20, ult = 0, inicio = 0, amostras = [], ajustes = 0, rol = scrollY, rolA = scrollY;
   function medir() {
     var w = Math.max(1, Math.round(cv.clientWidth * esc)), h = Math.max(1, Math.round(cv.clientHeight * esc));
+    k = w / Math.max(1, cv.clientWidth);
     if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
     desenhar();
   }
-  function desenhar() { gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, T); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+  function desenhar() { gl.uniform2f(uR, cv.width, cv.height); gl.uniform1f(uT, T); gl.uniform1f(uS, rolA * k); gl.drawArrays(gl.TRIANGLES, 0, 3); }
   function passo(ts) {
-    var dt = ult ? Math.min((ts - ult) / 1000, .1) : 0; ult = ts;
-    if (!document.hidden && !reduz.matches) {
-      T += dt; acum += dt;
-      if (acum >= 1 / 31) {
-        var t0 = performance.now(); desenhar(); acum = 0;
-        if (amostras.length < 40) {
-          amostras.push(dt);
-          if (amostras.length === 40) {
-            amostras.sort(function (a, b) { return a - b; });
-            if (amostras[20] > 0.045 && esc > 0.5) { esc = Math.max(0.5, esc * 0.7); medir(); amostras = []; }
-          }
+    var bruto = ult ? ts - ult : 16.7, dt = Math.min(bruto / 1000, .05); ult = ts;
+    if (!inicio) inicio = ts;
+    if (!document.hidden) {
+      if (!reduz.matches) T += dt;
+      rol = scrollY;
+      /* a rolagem chega amaciada: sem tranco quando a roda do mouse pula */
+      rolA += (rol - rolA) * Math.min(1, dt * 9);
+      if (Math.abs(rol - rolA) < .05) rolA = rol;
+      desenhar();
+      if (ajustes < 3 && ts - inicio > 2500) {
+        amostras.push(bruto);
+        if (amostras.length === 60) {
+          amostras.sort(function (a, b) { return a - b; });
+          if (amostras[30] > 24 && esc > .6) { esc = Math.max(.6, esc * .75); ajustes++; medir(); }
+          amostras = [];
         }
       }
     }
