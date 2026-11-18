@@ -3,18 +3,18 @@
 @font-face{font-family:"Hanken Grotesk";src:url(fonts/hanken.woff2) format("woff2");font-weight:100 900;font-display:swap}
 
 :root{
-  --papel:#F2ECE3; --papel2:#EAE2D6; --tinta:#1B1716; --tinta2:#4a403c;
+  --papel:#EEEDEA; --papel2:#DEDDDA; --cimento:#9b9a98; --tinta:#161515; --tinta2:#2f2c2c;
   --vinho:#7A1D2C; --vinho2:#5E1421; --escuro:#1E1416; --creme:#F2E7DA;
   --ouro1:#8a6a2c; --ouro2:#d6b46a; --ouro3:#f1dfa3;
   --ease:cubic-bezier(.16,.84,.32,1);
-  --ouro-grad:linear-gradient(90deg,rgba(255,255,255,0) 0 47%,rgba(255,250,225,.35) 50%,rgba(255,255,255,0) 53%),linear-gradient(135deg,#8a6a2c 0%,#d6b46a 16%,#f1dfa3 28%,#b48a3e 42%,#e8cf8a 58%,#9a7533 74%,#d6b46a 88%,#8a6a2c 100%);
-  --ouro-sombra:inset 0 0 0 1px #5c4318,inset 0 0 0 4px #c9a456,inset 0 0 0 5px #6d5020,inset 0 0 10px 5px rgba(80,56,18,.45),0 2px 0 #6d5020,0 24px 46px -16px rgba(20,12,10,.55),0 6px 14px -4px rgba(20,12,10,.3);
+  --ouro-grad:linear-gradient(90deg,rgba(255,255,255,0) 0 47%,rgba(255,255,255,.07) 50%,rgba(255,255,255,0) 53%),linear-gradient(135deg,#0c0c0d 0%,#232325 16%,#38383b 28%,#141415 42%,#2c2c2e 58%,#0f0f10 74%,#242426 88%,#0b0b0c 100%);
+  --ouro-sombra:inset 0 0 0 1px #000,inset 0 0 0 4px #3a3a3d,inset 0 0 0 5px #050505,inset 0 0 10px 5px rgba(0,0,0,.55),0 2px 0 #050505,0 24px 46px -16px rgba(20,12,10,.55),0 6px 14px -4px rgba(20,12,10,.3);
   --serif:"Gloock",Georgia,serif; --sans:"Hanken Grotesk",system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:url(img/grao.png),var(--papel);color:var(--tinta);font:400 17px/1.6 var(--sans);overflow-x:hidden}
+body{margin:0;background:var(--cimento);color:var(--tinta);font:400 17px/1.6 var(--sans);overflow-x:hidden}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
 h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;line-height:1.08}
@@ -34,8 +34,8 @@ p{margin:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;border:1.5px solid var(--vinho);background:transparent;color:var(--vinho);font:600 15px/1 var(--sans);letter-spacing:.03em;text-decoration:none;cursor:pointer;border-radius:0;transition:background-color .3s var(--ease),color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
 .btn:hover{background:var(--vinho);color:var(--creme)}
 .btn:active{transform:translateY(1px) scale(.985)}
-.btn-cheio{background:var(--vinho);color:var(--creme);box-shadow:4px 4px 0 var(--ouro2)}
-.btn-cheio:hover{background:var(--vinho2);box-shadow:2px 2px 0 var(--ouro2)}
+.btn-cheio{background:var(--vinho);color:var(--creme);box-shadow:4px 4px 0 var(--tinta)}
+.btn-cheio:hover{background:var(--vinho2);box-shadow:2px 2px 0 var(--tinta)}
 .btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--ouro1);outline-offset:3px}
 
 /* ORNAMENTOS (traço da própria Vall) */
@@ -61,7 +61,7 @@ p{margin:0}
   background:var(--ouro-grad);box-shadow:var(--ouro-sombra);
   opacity:0;animation:sobe .8s var(--ease) .05s forwards;
 }
-.quadro-pp{position:relative;height:100%;background:#f6f1e9;box-shadow:inset 0 0 0 1px #6d5020,inset 0 2px 8px rgba(60,40,10,.35);overflow:hidden}
+.quadro-pp{position:relative;height:100%;background:#efeeeb;box-shadow:inset 0 0 0 1px #000,inset 0 2px 8px rgba(0,0,0,.4);overflow:hidden}
 .quadro-pp::before{content:"";position:absolute;inset:0;background:url(img/grao.png);opacity:.35;pointer-events:none}
 .quadro-pp img,.quadro-pp canvas{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
 .quadro-pp canvas{opacity:0;transition:opacity .4s var(--ease)}
@@ -79,7 +79,7 @@ p{margin:0}
 .fundo{position:fixed;left:0;top:0;width:100%;height:100lvh;z-index:0;pointer-events:none;display:block;opacity:0;transition:opacity 1.6s var(--ease)}
 .fundo.pronto{opacity:1}
 .parede{position:relative}
-.sec-papel2{background:rgba(226,215,200,.42)}
+.sec-papel2{background:rgba(255,255,255,.1)}
 .parede-hero{align-self:stretch;padding:clamp(34px,6svh,64px) 0 26px}
 
 /* SEÇÕES */
@@ -138,7 +138,7 @@ p{margin:0}
 .galeria{display:grid;grid-template-columns:1fr 1.22fr 1fr;align-items:center;gap:clamp(22px,4vw,56px);max-width:1040px;margin:0 auto}
 .qd{margin:0}
 .qd-moldura{padding:clamp(10px,1.4vw,17px);background:var(--ouro-grad);box-shadow:var(--ouro-sombra)}
-.qd-moldura img{width:100%;aspect-ratio:4/5;object-fit:cover;box-shadow:inset 0 0 0 1px #6d5020;outline:1px solid #6d5020;-webkit-user-drag:none}
+.qd-moldura img{width:100%;aspect-ratio:4/5;object-fit:cover;box-shadow:inset 0 0 0 1px #000;outline:1px solid #000;-webkit-user-drag:none}
 .sec-miss .titulos{margin-top:20px}
 
 /* DÚVIDAS */

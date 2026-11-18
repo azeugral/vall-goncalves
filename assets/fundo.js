@@ -55,16 +55,25 @@
     " float faixa=smoothstep(.8-aa,.8+aa,v);",
     /* miolo da faixa um pouco mais denso que a borda, como tinta que assentou */
     " float miolo=smoothstep(.8,1.,v);",
-    " float tom=.04+.028*miolo+.012*(w-.5);",
+    " float tom=.07+.04*miolo+.018*(w-.5);",
     /* veio fino que acompanha a faixa por fora, afinando nas pontas */
     " float lw=.035*smoothstep(.25,.7,w);",
     " float veio=smoothstep(.62-aa,.62+aa,v)*(1.-smoothstep(.62+lw-aa,.62+lw+aa,v))*clamp(lw/(aa*2.5+1e-4),0.,1.);",
-    " float al=faixa*tom+veio*.06*(1.-faixa);",
-    /* dither por pixel contra degrau no cinza claro */
-    " al+=(fract(52.9829189*fract(dot(fc,vec2(.06711056,.00583715))))-.5)/255.;",
+    " float al=faixa*tom+veio*.1*(1.-faixa);",
+    /* cimento queimado: nuvens largas, manchas médias, pontinhos finos e um grão estático; mais claro no centro, como fundo de estúdio */
+    " vec2 cp=(fc-vec2(0.,uS*.18))/mn;",
+    " float n1=fb(cp*1.1+vec2(11.,3.)), n2=fb(cp*4.2+vec2(2.,17.)), n3=.5+.5*sn(cp*19.+vec2(7.,1.)), n4=.5+.5*sn(cp*58.);",
+    " float cim=.585+.13*(n1-.5)+.06*(n2-.5)+.03*(n3-.5)+.018*(n4-.5);",
+    " cim+=.07*smoothstep(.62,.9,n2)*(n1-.35);",
+    " vec2 vq=(fc-vec2(.5,.56)*uRes)/uRes; vq.x*=uRes.x/max(uRes.y,1.)*.7;",
+    " float vg=smoothstep(.1,.95,length(vq)); cim*=1.06-.3*vg;",
+    " float gr=fract(sin(dot(floor(fc),vec2(12.9898,78.233)))*43758.5453);",
+    " cim+=(gr-.5)*.035;",
+    " vec3 cimento=vec3(cim)*vec3(.995,.995,1.);",
     " al=clamp(al,0.,1.);",
-    " vec3 tinta=vec3(.11,.085,.08);",
-    " gl_FragColor=vec4(tinta*al,al);}"
+    /* dither por pixel contra degrau nos cinzas */
+    " vec3 o=mix(cimento,vec3(.07,.068,.072),al)+(fract(52.9829189*fract(dot(fc,vec2(.06711056,.00583715))))-.5)/255.;",
+    " gl_FragColor=vec4(o,1.);}"
   ].join("\n");
   function sh(tp, src) { var o = gl.createShader(tp); gl.shaderSource(o, src); gl.compileShader(o); if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) console.warn("fundo:", gl.getShaderInfoLog(o)); return o; }
   var pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS));
